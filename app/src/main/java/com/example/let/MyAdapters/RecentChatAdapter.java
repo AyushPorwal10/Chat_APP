@@ -2,6 +2,7 @@ package com.example.let.MyAdapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,19 @@ public class RecentChatAdapter extends FirestoreRecyclerAdapter<ChatRoomModel , 
                   if(task.isSuccessful()){
                       boolean lastMessageSentByMe = FirebaseUtils.currentUserUid().equals(model.getLastMessageSenderId());
                       UserModel otherUserModel = task.getResult().toObject(UserModel.class);
+
+
+                      FirebaseUtils.getOtherReference(otherUserModel.getUserId()).getDownloadUrl()
+                              .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                  @Override
+                                  public void onComplete(@NonNull Task<Uri> t) {
+                                      if(t.isSuccessful()){
+                                          Uri uri1 = t.getResult();
+                                          AndroidUtil.setProfileImage(uri1,holder.binding.lastMessageText.getContext(),holder.binding.profilePicture.profilePictureImageView);
+                                      }
+
+                                  }
+                              });
 
                       if(otherUserModel.getUserId().equals(FirebaseUtils.currentUserUid())){
                           holder.binding.userNameText.setText("Self (You)");

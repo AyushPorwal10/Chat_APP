@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,10 +43,20 @@ public class Chat_Activity extends AppCompatActivity {
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-         userModel =(UserModel) getIntent().getParcelableExtra("model"); // here i am receing the object via intent
+         userModel = getIntent().getParcelableExtra("model"); // here i am receiving the object via intent
+
+        FirebaseUtils.getOtherReference(userModel.getUserId()).getDownloadUrl()
+                .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> t) {
+                        if(t.isSuccessful()){
+                            Uri uri1 = t.getResult();
+                            AndroidUtil.setProfileImage(uri1,Chat_Activity.this,binding.profilePhotoWhileChat.profilePictureImageView);
+                        }
+                    }
+                });
 
          binding.userName.setText(userModel.getUseName());
-         Log.d("Checkinggggggggggg",userModel.getUserId() +"   "+ FirebaseUtils.currentUserUid());
         chatRoomId = FirebaseUtils.getChatRoomId(userModel.getUserId(),FirebaseUtils.currentUserUid());
 
          binding.backBtn.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +111,7 @@ public class Chat_Activity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         if(task.isSuccessful()){
                             binding.sendMessageEditText.setText("");
+
                         }
                     }
                 });

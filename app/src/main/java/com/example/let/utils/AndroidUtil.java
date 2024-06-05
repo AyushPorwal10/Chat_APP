@@ -2,8 +2,12 @@ package com.example.let.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.let.MyModels.UserModel;
 
 public class AndroidUtil {
@@ -22,4 +26,8 @@ public class AndroidUtil {
         model.setPhoneNumber(intent.getStringExtra("phone"));
         return model;
     }
+    public static void setProfileImage(Uri uri, Context context, ImageView imageView){
+        Glide.with(context).load(uri).apply(RequestOptions.circleCropTransform()).into(imageView);
+    }
+
 }

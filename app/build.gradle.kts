@@ -6,6 +6,9 @@ plugins {
 android {
     namespace = "com.example.let"
     compileSdk = 34
+    packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
+    }
 
     defaultConfig {
         applicationId = "com.example.let"
@@ -42,7 +45,15 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.firebaseui:firebase-ui-firestore:8.0.2")
+    implementation("com.google.firebase:firebase-storage:21.0.0")
+
+    implementation("com.google.firebase:firebase-messaging:24.0.0")  //this is required
     testImplementation("junit:junit:4.13.2")
+    implementation ("com.android.volley:volley:1.2.1")
+
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation ("com.google.auth:google-auth-library-oauth2-http:1.19.0")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
 }

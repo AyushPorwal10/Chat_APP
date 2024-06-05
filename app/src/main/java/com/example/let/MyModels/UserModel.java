@@ -13,6 +13,15 @@ public class UserModel implements Parcelable   {
     private String phoneNumber ;
     private Timestamp timestamp ;
     private String userId ;
+    private String fcmToken;
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
 
     public UserModel() {
     }

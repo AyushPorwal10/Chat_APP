@@ -26,6 +26,7 @@ public class LoginPhoneNumber extends AppCompatActivity {
                 binding.loginProgressBar.setVisibility(View.VISIBLE);
                 if(!binding.loginCountryCode.isValidFullNumber()){
                     binding.loginMobileNumber.setError("Invalid mobile number");
+                    binding.loginProgressBar.setVisibility(View.GONE);
                 }
                 else{
                     Intent intent = new Intent(LoginPhoneNumber.this,OTP_activity.class);

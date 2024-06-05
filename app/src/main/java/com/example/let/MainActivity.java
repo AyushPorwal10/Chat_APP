@@ -7,20 +7,63 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.example.let.databinding.ActivityMainBinding;
+import com.example.let.utils.AndroidUtil;
+import com.example.let.utils.FirebaseUtils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding ;
-
+    ExecutorService executorService;
+    String ACCESS_TOKEN;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // this is to check the concept of access token
+//        executorService = Executors.newSingleThreadExecutor();
+
+
+        // this is to check the concept of access token
+        binding.accessTokenBtn.setOnClickListener(v -> {
+            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+                if(!task.isSuccessful()){
+                    Log.d("AccesToken error",task.getException().toString());
+                    return;
+                }
+                ACCESS_TOKEN = task.getResult();
+                Log.d("AccessToken ",ACCESS_TOKEN);
+
+                SendNotification notificationSender = new SendNotification(
+                        ACCESS_TOKEN,
+                        "this is title","this is body ",getApplicationContext()
+                );
+                notificationSender.sendNotification();
+            });
+        });
+
+
+
+
+
+
+
+
+
+
         binding.searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState==null){
             binding.bottomNavigation.setSelectedItemId(R.id.menu_chats);
         }
-
     }
     private void replaceFragment(Fragment fragment) {
         Fragment existingFragment = getSupportFragmentManager().findFragmentById(R.id.main_frame_layout);
@@ -59,5 +101,12 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.main_frame_layout, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+//        executorService.shutdown();
+
     }
 }
