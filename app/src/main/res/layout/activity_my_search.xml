@@ -23,7 +23,7 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/icon_back"
+            android:src="@drawable/back_button"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:id="@+id/backBtn"
@@ -55,7 +55,7 @@
         <ImageView
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:src="@drawable/search"
+            android:src="@drawable/search_button"
             android:layout_alignParentEnd="true"
             android:id="@+id/search_user_btn"
             android:layout_centerVertical="true"
