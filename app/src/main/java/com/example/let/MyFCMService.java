@@ -45,7 +45,7 @@ public class MyFCMService extends FirebaseMessagingService {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("channel_id","channel_name",NotificationManager.IMPORTANCE_DEFAULT);
             mNotificationManager.createNotificationChannel(channel);
-            builder.setChannelId("Notification");
+            builder.setChannelId("channel_id");
         }
         mNotificationManager.notify(100,builder.build());
 

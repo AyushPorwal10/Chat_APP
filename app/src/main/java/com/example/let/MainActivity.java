@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,27 +34,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // this is to check the concept of access token
-//        executorService = Executors.newSingleThreadExecutor();
 
-
-        // this is to check the concept of access token
-        binding.accessTokenBtn.setOnClickListener(v -> {
-            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
-                if(!task.isSuccessful()){
-                    Log.d("AccesToken error",task.getException().toString());
-                    return;
-                }
-                ACCESS_TOKEN = task.getResult();
-                Log.d("AccessToken ",ACCESS_TOKEN);
-
-                SendNotification notificationSender = new SendNotification(
-                        ACCESS_TOKEN,
-                        "this is title","this is body ",getApplicationContext()
-                );
-                notificationSender.sendNotification();
-            });
-        });
 
 
 

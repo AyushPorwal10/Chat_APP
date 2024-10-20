@@ -33,11 +33,10 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/icon_back"
-            android:layout_marginTop="8dp"
 
+            android:layout_marginTop="8dp"
             android:id="@+id/backBtn"
-            android:background="@color/my_primary"
+            android:background="@drawable/back_button"
             />
 
     </RelativeLayout>
@@ -64,15 +63,15 @@
             android:layout_margin="10dp"
             android:layout_toLeftOf="@+id/send_message_btn"
             android:padding="10dp"/>
+
         <ImageView
+            android:id="@+id/send_message_btn"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            android:src="@drawable/send_btn"
-            android:layout_centerVertical="true"
-            app:tint="@color/my_primary"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:id="@+id/send_message_btn"/>
+            android:src="@drawable/send_message_button"
+            app:tint="@color/my_primary" />
     </RelativeLayout>
 </RelativeLayout>
